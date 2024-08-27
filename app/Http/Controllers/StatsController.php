@@ -2,10 +2,13 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Resources\SeatResource;
+use App\Models\Seat;
+
 class StatsController extends Controller
 {
-    public function stats()
+    public function index()
     {
-        //
+        return SeatResource::collection(Seat::query()->withCount('tickets')->get());
     }
 }

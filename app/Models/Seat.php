@@ -5,6 +5,9 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 
+/**
+ * @property mixed $id
+ */
 class Seat extends Model
 {
     protected $table = 'seats';
@@ -12,6 +15,6 @@ class Seat extends Model
 
     public function tickets(): HasMany
     {
-        return $this->hasMany('App\Ticket');
+        return $this->hasMany(Ticket::class);
     }
 }

@@ -10,18 +10,25 @@ class Ticket extends Model
     protected $table = 'tickets';
     public $timestamps = false;
 
+    protected $fillable = [
+        'seat_id' ,
+        'movie_id' ,
+        'user_id' ,
+        'date_bought'
+    ];
+
     public function movie(): BelongsTo
     {
-        return $this->belongsTo('App\Movie');
+        return $this->belongsTo(Movie::class);
     }
 
     public function seat(): BelongsTo
     {
-        return $this->belongsTo('App\Seat');
+        return $this->belongsTo(Seat::class);
     }
 
     public function user(): BelongsTo
     {
-        return $this->belongsTo('App\User');
+        return $this->belongsTo(User::class);
     }
 }

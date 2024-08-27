@@ -2,8 +2,24 @@
 
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\MovieController;
+use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\StatsController;
 use Illuminate\Support\Facades\Route;
+
+Route::get('/', function () {
+    return view('welcome');
+});
+
+Route::get('/dashboard', function () {
+    return view('dashboard');
+})->middleware(['auth', 'verified'])->name('dashboard');
+
+Route::middleware('auth')->group(function () {
+    Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
+    Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
+    Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+});
+
 
 Route
     ::middleware('minifier')->get('/', function () {
@@ -29,14 +45,17 @@ Route
             ->name('list_movies');
 
         Route
-            ::get('movie/{id}', 'list_seats')
+            ::get('movie/{movie}', 'list_seats')
             ->name('list_seats');
 
         Route
             ::get('movie/{movie}/reserve/{seat}', 'reserve_seat')
-            ->name('reserve_seat');
+            ->name('reserve_seat')->middleware('auth');
     });
 
 Route
     ::get('stats', [StatsController::class, 'index'])
-    ->name('stats');
+    ->name('stats')->middleware('auth');
+
+
+require __DIR__ . '/auth.php';
