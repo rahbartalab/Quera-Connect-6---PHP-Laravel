@@ -130,7 +130,7 @@ readonly class Grade
 // Usage Example:
 
 $util = new CourseUtil();
-$util->set_file(__DIR__.'/data.txt');
+$util->set_file(__DIR__ . '/data.txt');
 $grade = new Grade(445612, 1234, 85.5);
 $util->save($grade);
 echo "Total Records: " . $util->count() . "\n";
